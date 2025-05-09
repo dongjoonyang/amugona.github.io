@@ -3,11 +3,11 @@ const tabs = document.querySelectorAll('.tab');
 const contents = document.querySelectorAll('.tab_content');
 const btnBuzzer = document.querySelector('#btnBuzzer');
 const buzzerCount = btnBuzzer.querySelector('.count'); // count 클래스를 가진 span 요소 직접 선택
-const 탭별뽑기횟수 = {}; // 탭별 뽑기 횟수를 저장하는 객체
+const choiceCount = {}; // 탭별 뽑기 횟수를 저장하는 객체
 
 tabs.forEach(tab => {
     const tabIndex = tab.getAttribute('data-tab');
-    탭별뽑기횟수[tabIndex] = 3; // 각 탭의 뽑기 횟수를 초기화
+    choiceCount[tabIndex] = 3; // 각 탭의 뽑기 횟수를 초기화
 
     tab.addEventListener('click', () => {
         const target = tab.getAttribute('data-tab');
@@ -23,10 +23,10 @@ tabs.forEach(tab => {
         });
 
         // 현재 탭의 뽑기 횟수를 업데이트
-        뽑기횟수 = 탭별뽑기횟수[target];
-        buzzerCount.textContent = 뽑기횟수; // span 요소의 textContent 업데이트
+        randChoiceCount = choiceCount[target];
+        buzzerCount.textContent = randChoiceCount; // span 요소의 textContent 업데이트
         btnBuzzer.innerHTML = `뽑기 <span class="count">${뽑기횟수}</span>`;
-        btnBuzzer.disabled = 뽑기횟수 === 0;
+        btnBuzzer.disabled = randChoiceCount === 0;
     });
 });
 
@@ -71,16 +71,17 @@ const dimLayerContent = dimLayer.querySelector('.dim_layer_content p:last-child 
 let rotationInterval;
 let selectionInterval;
 let countdownInterval;
+let randChoiceCount = 3; // 초기 뽑기 횟수
 
 btnBuzzer.addEventListener('click', () => {
     const activeTab = document.querySelector('.tab.active');
     const activeTabIndex = activeTab.getAttribute('data-tab');
 
-    if (탭별뽑기횟수[activeTabIndex] > 0) {
+    if (choiceCount[activeTabIndex] > 0) {
         dimLayer.classList.add('active');
         let count = 3;
         dimLayerContent.textContent = count;
-        const currentCount = 탭별뽑기횟수[activeTabIndex] - 1;
+        const currentCount = choiceCount[activeTabIndex] - 1;
         buzzerCount.textContent = currentCount; // span 요소의 textContent 업데이트
         btnBuzzer.disabled = true;
 
@@ -114,10 +115,10 @@ btnBuzzer.addEventListener('click', () => {
             boxes.forEach(box => box.classList.remove('rotating')); // 회전 애니메이션 종료
             dimLayer.classList.remove('active');
             btnBuzzer.disabled = false;
-            탭별뽑기횟수[activeTabIndex]--; // 현재 탭의 뽑기 횟수 감소
-            뽑기횟수 = 탭별뽑기횟수[activeTabIndex]; // 전역 변수 업데이트
-            buzzerCount.textContent = 뽑기횟수; // span 요소의 textContent 업데이트
-            btnBuzzer.innerHTML = 뽑기횟수 === 0 ? '뽑기 완료' : `뽑기 <span class="count">${뽑기횟수}</span>`;
+            choiceCount[activeTabIndex]--; // 현재 탭의 뽑기 횟수 감소
+            randChoiceCount = choiceCount[activeTabIndex]; // 전역 변수 업데이트
+            buzzerCount.textContent = randChoiceCount; // span 요소의 textContent 업데이트
+            btnBuzzer.innerHTML = randChoiceCount === 0 ? '뽑기 완료' : `뽑기 <span class="count">${뽑기횟수}</span>`;
 
             // 최종 선택된 active box의 이미지로 아바타 변경
             const finalActiveBox = activeTabContent.querySelector('.box.active');
@@ -146,12 +147,12 @@ btnReset.addEventListener('click', () => {
     // 탭 초기화 및 뽑기 횟수 초기화
     tabs.forEach((tab, index) => {
         const tabIndex = tab.getAttribute('data-tab');
-        탭별뽑기횟수[tabIndex] = 3; // 각 탭의 뽑기 횟수 초기화
+        choiceCount[tabIndex] = 3; // 각 탭의 뽑기 횟수 초기화
         if (index === 0) {
             tab.classList.add('active');
-            뽑기횟수 = 3;
-            buzzerCount.textContent = 뽑기횟수; // span 요소의 textContent 업데이트
-            btnBuzzer.innerHTML = `뽑기 <span class="count">${뽑기횟수}</span>`;
+            randChoiceCount = 3;
+            buzzerCount.textContent = randChoiceCount; // span 요소의 textContent 업데이트
+            btnBuzzer.innerHTML = `뽑기 <span class="count">${randChoiceCount}</span>`;
             btnBuzzer.disabled = false;
         } else {
             tab.classList.remove('active');
