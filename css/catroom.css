@@ -1,0 +1,427 @@
+/* 공통 */
+html,body * {box-sizing: border-box;}
+.catroom {position: relative;max-width: 1080px;height: 100%;margin: 0 auto;border: 1px solid #ddd;}
+img {width: 100%;height: 100%;}
+button {background: unset;border: unset;cursor: pointer;}
+:root {
+	--main-color: #56E8AB;
+	--sub-color: #3ECF92;
+	/* --text-color: #343A40;
+	--background-color: #F8F9FA;
+	--border-color: #CED4DA;
+	--hover-color: #E9ECEF;
+	--active-color: #007BFF; */
+}
+/* 임시 숨김 */
+.catroom_btns_left {
+	display: none;
+}
+
+/* 헤더 */
+.catroom .catroom_header {
+	width: 100%;
+	height: 50px;
+	display: flex;
+	align-items: center;
+	padding: 0 20px; 
+	overflow: hidden;
+	background: #F6F8F9;
+	border-bottom: 1px solid #ddd;
+}
+.catroom .catroom_header h1 {
+	font-size: 20px;
+	font-weight: bold;
+	color: #333;
+	text-align: center;
+	/* background-color: var(--main-color); */
+}
+/* 고양이 선택 버튼 */
+.catroom_btns {
+	position: absolute;
+	right: 20px;
+	top: 360px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+}
+.catroom_btns .btn.info {
+	min-width: 30px;
+	height: 30px;
+	background: #fff;
+	color: #333;
+	border-radius: 50%;
+	font-weight: bold;
+	color: #666;
+	border: 1px solid #ddd;
+}
+.catroom_btns .btn.buzzer {
+	min-width: 100px;
+	height: 40px;
+	background: #fff;
+	color: #333;
+	border-radius: 7px;
+	font-weight: bold;
+	font-size: 18px;
+	border: 1px solid #ddd;
+}
+.catroom_btns .btn.buzzer:hover {
+	background: var(--main-color);
+	color: #fff;
+	border-radius: 7px;
+	font-weight: bold;
+	font-size: 18px;
+	border: none;
+}
+.catroom_btns .btn.buzzer .count {
+	display: inline-block;
+	min-width: 20px;
+	height: 20px;
+	background: #fff;
+	color: #333;
+	border-radius: 50%;
+	color: #333;
+	border: 1px solid #ddd;
+	font-weight: bold;
+}
+/* 고양이 아바타 */
+.catroom_visual {
+	width: 100%;
+	min-height: 370px;
+	border-bottom: 1px solid #ddd;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.catroom_visual_area {
+	position: relative;
+	overflow: hidden; 
+	width: 300px;
+	height: 300px;
+	border: 1px solid #ddd;
+	border-radius: 10px;
+}
+.catroom_visual_area .visual_face {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 300px;
+	height: 300px;
+	transform: translate(-50%, -50%);
+	cursor: grab;
+}
+.catroom_visual_area .visual_eyes {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 300px;
+	height: 300px;
+	transform: translate(-50%, -50%);
+	/* cursor: grab; */
+}
+.catroom_visual_area .visual_noise {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 300px;
+	height: 300px;
+	transform: translate(-50%, -50%);
+	/* cursor: grab; */
+}
+.catroom_visual_area .visual_mouth {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 300px;
+	height: 300px;
+	transform: translate(-50%, -50%);
+	/* cursor: grab; */
+}
+/* 탭 */
+.catroom_content .tabs {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+}
+.catroom_content .tab {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 18px;
+	padding: 10px 20px;
+	border: 1px solid #ABABAB;
+	background: #fff;
+	margin-left: -1px;
+	min-width: 60px;
+}
+.catroom_content .tab.active {
+	background: #56E8AB;
+	font-weight: bold;
+	border: 1px solid #3ECF92;
+	color: #fff;
+}
+.catroom_content .tab:nth-child(1) {
+	border-radius: 5px 0 0 5px;
+}
+.catroom_content .tab:nth-child(4) {
+	border-radius: 0 5px 5px 0;
+}
+.catroom_content .tab_content {
+	min-height: 300px;
+	max-height: 500px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	display: none;
+	margin-top: 30px;
+	margin-bottom: 90px;
+}
+.catroom_content .tab_content.active {
+	display: block;
+}
+.catroom_content {
+	height: 100%;
+	min-height: 400px;
+	padding: 20px;
+	background: #F6F8F9;
+}
+.catroom_content .tab_content_area{
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	padding: 10px;
+	gap: 30px;
+}
+.catroom_content .tab_content_area .box {
+	width: 180px;
+	height: 180px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #fff;
+	border-radius: 7px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.catroom_content .tab_content_area .box.active {
+	border: 2px solid var(--main-color);
+}
+
+/* 딤 레이어 */
+.dim_layer {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.8);
+	display: none;
+	z-index: 9999;
+}
+.dim_layer.active {
+	display: block;
+}
+.dim_layer .dim_layer_content {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 500px;
+	height: 300px;
+	transform: translate(-50%, -50%);
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	color: #fff;
+}
+.dim_layer .dim_layer_content p:nth-child(1) {
+	font-size: 20px;
+	margin-bottom: 20px;
+}
+.dim_layer .dim_layer_content p:nth-child(2) {
+	font-size: 25px;
+}
+.dim_layer .dim_layer_content p span {
+	font-size: 52px;
+}
+
+/* 푸터 */
+.footer {
+	position: fixed;
+	bottom: 0;
+	left: 50%;
+	transform: translate(-50%, 0);
+	width: 1080px;
+	height: 80px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: #fff;
+	border-top: 1px solid #ddd;
+}
+.footer_btns .btn {
+	width: 200px;
+	height: 40px;
+	margin: 0 10px;
+	background: var(--main-color);
+	color: #fff;
+	border: none;
+	border-radius: 30px;
+	cursor: pointer;
+}
+.footer_btns .btn.reset {
+	background: #fff;
+	border: 1px solid #ddd;
+	color: #333;
+}
+
+@media only screen and (max-width: 1080px) {
+	/* 헤더 */
+	.catroom .catroom_header {
+		height: 10.630vw;
+		padding: 0 1.852vw; 
+	}
+	.catroom .catroom_header h1 {
+		font-size: 3.778vw;
+	}
+	/* 고양이 선택 버튼 */
+	.catroom_btns {
+		position: fixed;
+		right: 4vw;
+		bottom: 4vw;
+		top: initial;
+		z-index: 10;
+	}
+	.catroom_btns .btn.info {
+		display: none; /* 숨김 (!) 버튼 */
+		min-width: 30px;
+		height: 30px;
+		background: #fff;
+		color: #333;
+		border-radius: 50%;
+		font-weight: bold;
+		color: #666;
+		border: 1px solid #ddd;
+		display: none;
+	}
+	.catroom_btns .btn.buzzer {
+		min-width: initial;
+		padding: 2vw 4vw;
+		height: auto;
+		background: #fff;
+		color: #333;
+		border-radius: 1.5vw;
+		font-size: 5vw;
+		border: 1px solid #ddd;
+		background: #3ECF92;
+		color: #fff;
+	}
+	.catroom_btns .btn.buzzer .count {
+		min-width: 6vw;
+		height: 6vw;
+	}
+	/* 고양이 아바타 */
+	.catroom_visual {
+		width: 100%;
+		min-height: 35vw;
+	}
+	.catroom_visual_area {
+		width: 30vw;
+		height: 30vw;
+		border-radius: 0.926vw;
+	}
+	.catroom_visual_area .visual_face {
+		width: 30vw;
+		height: 30vw;
+		cursor: grab;
+	}
+	.catroom_visual_area .visual_eyes {
+		width: 30vw;
+		height: 30vw;
+	}
+	.catroom_visual_area .visual_noise {
+		width: 30vw;
+		height: 30vw;
+	}
+	.catroom_visual_area .visual_mouth {
+		width: 30vw;
+		height: 30vw;
+	}
+	/* 탭 */
+	.catroom_content {
+		min-height: 100vw;
+		padding: 3vw;
+	}
+	.catroom_content .tab {
+		font-size: 3vw;
+		padding: 3vw 4vw;
+		min-width: 5.556vw;
+	}
+	.catroom_content .tab:nth-child(1) {
+		border-radius: 0.463vw 0 0 0.463vw;
+	}
+	.catroom_content .tab:nth-child(4) {
+		border-radius: 0 0.463vw 0.463vw 0;
+	}
+	.catroom_content .tab_content {
+		min-height: 27.778vw;
+		max-height: 50vw;
+		display: none;
+		margin-top: 2.778vw;
+		margin-bottom: 8.333vw;
+	}
+	.catroom_content .tab_content_area{
+		padding: 3vw;
+		gap: unset;
+	}
+	.catroom_content .tab_content_area .box {
+		width: 18.667vw;
+		height: 18.667vw;
+		border-radius: 0.926vw;
+		margin-bottom: 5vw;
+	}
+	/* 딤 레이어 */
+	.dim_layer .dim_layer_content {
+		width: auto;
+		height: auto;
+		border-radius: unset;
+	}
+	.dim_layer .dim_layer_content p:nth-child(1) {
+		font-size: 4.222vw;
+		margin-bottom: 4.222vw;
+	}
+	.dim_layer .dim_layer_content p:nth-child(2) {
+		font-size: 4.315vw;
+	}
+	.dim_layer .dim_layer_content p span {
+		font-size: 8.815vw;
+	}
+
+	/* 푸터 */
+	.footer {
+		width: 100%;
+		height: 15.407vw;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.footer_btns .btn {
+		width: initial;
+		height: auto;
+		margin: 0 auto;
+		padding: 2vw 4vw;
+		background: var(--main-color);
+		color: #fff;
+		border: none;
+		border-radius: 30px;
+		cursor: pointer;
+	}
+	.footer_btns .btn.reset {
+		background: #fff;
+		border: 1px solid #ddd;
+		color: #333;
+	}
+}
+
+
+

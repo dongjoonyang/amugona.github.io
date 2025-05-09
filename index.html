@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>고양이 아바타 뽑기</title>
+
+	<!-- 피그마 -->
+	<!-- 
+		https://www.figma.com/design/C6ef8VHdZGd1Git6Kg4s41/kkamnyang?node-id=0-1&p=f&t=H2zlYM6S1J94MN9t-0 
+	-->
+	<!-- styles -->
+	<link rel="stylesheet" href="./css/reset.css" />
+	<link rel="stylesheet" href="./css/catroom.css" />
+
+</head>
+<body>
+	<section class="catroom">
+		<header class="catroom_header">
+			<h1>고양이 랜덤 캐릭터 생성기</h1>
+		</header>
+
+		<div class="catroom_btns">
+			<div class="catroom_btns_left">
+				<button class="btn info" id="btn_info">!</button>
+				<!-- <div>내용</div> -->
+			</div>
+			<button class="btn buzzer" id="btnBuzzer">뽑기 <span class="count">3</span></button>
+		</div>
+
+		<article class="catroom_visual">
+			<div class="catroom_visual_area">
+				<div class="visual_face" style="background: url('./img/img_face1.png') no-repeat center center / 100% 100%;"></div>
+				<div class="visual_eyes" style="background: url('./img/img_eyes1.png') no-repeat center center / 100% 100%;"></div>
+				<div class="visual_noise" style="background: url('./img/img_noise1.png') no-repeat center center / 100% 100%;"></div>
+				<div class="visual_mouth" style="background: url('./img/img_mouth1.png') no-repeat center center / 100% 100%;"></div>
+			</div>
+		</article>
+
+		<div class="catroom_content">
+			<div class="tabs">
+				<div class="tab active" data-tab="1">얼굴</div>
+				<div class="tab" data-tab="2">눈</div>
+				<div class="tab" data-tab="3">코</div>
+				<div class="tab" data-tab="4">입</div>
+			</div>
+		
+			<div class="tab_content active" data-content="1">
+				<div class="tab_content_area">
+					<button class="box active"><img src="./img/img_face1.png" alt="face1" /></button>
+					<button class="box"><img src="./img/img_face2.png" alt="face2" /></button>
+					<button class="box"><img src="./img/img_face3.png" alt="face3" /></button>
+					<button class="box"><img src="./img/img_face4.png" alt="face4" /></button>
+					<button class="box"><img src="./img/img_face5.png" alt="face5" /></button>
+				</div>
+			</div>
+			<div class="tab_content" data-content="2">
+				<div class="tab_content_area">
+					<button class="box active"><img src="./img/img_eyes1.png" alt="eye1" /></button>
+					<button class="box"><img src="./img/img_eyes2.png" alt="eye2" /></button>
+					<button class="box"><img src="./img/img_eyes3.png" alt="eye3" /></button>
+					<button class="box"><img src="./img/img_eyes4.png" alt="eye4" /></button>
+					<button class="box"><img src="./img/img_eyes5.png" alt="eye5" /></button>
+				</div>
+			</div>
+			<div class="tab_content" data-content="3">
+				<div class="tab_content_area">
+					<button class="box active"><img src="./img/img_noise1.png" alt="noise1" /></button>
+					<button class="box"><img src="./img/img_noise2.png" alt="noise2" /></button>
+					<button class="box"><img src="./img/img_noise3.png" alt="noise3" /></button>
+					<button class="box"><img src="./img/img_noise4.png" alt="noise4" /></button>
+					<button class="box"><img src="./img/img_noise5.png" alt="noise5" /></button>
+				</div>
+			</div>
+			<div class="tab_content" data-content="4">
+				<div class="tab_content_area">
+					<button class="box active"><img src="./img/img_mouth1.png" alt="mouth1" /></button>
+					<button class="box"><img src="./img/img_mouth2.png" alt="mouth2" /></button>
+					<button class="box"><img src="./img/img_mouth3.png" alt="mouth3" /></button>
+					<button class="box"><img src="./img/img_mouth4.png" alt="mouth4" /></button>
+					<button class="box"><img src="./img/img_mouth5.png" alt="mouth5" /></button>
+				</div>
+			</div>
+		</div>
+
+		<div class="footer">
+			<div class="footer_btns">
+				<button class="btn reset" id="btn_reset">초기화</button>
+				<button class="btn" id="btn_save" onclick="alert('개발 준비중입니다.')">저장하기</button>
+			</div>
+		</div>
+	</section>
+
+	<!-- 시간초 뽑기 딤 레이어 -->
+	<div class="dim_layer " id="dimLayer">
+		<div class="dim_layer_content">
+			<p>뽑기 시작!</p>
+			<p><span class="count">3</span>초</p>
+		</div>
+	</div>
+
+	<!-- js -->
+	<script src="./js/catroom.js"></script>
+	<script>
+		// const dragItem = document.getElementById("dragMe");
+		// let offsetX = 0;
+		// let offsetY = 0;
+		// let isDragging = false;
+
+		// dragItem.addEventListener("mousedown", (e) => {
+		// 	isDragging = true;
+		// 	offsetX = e.clientX - dragItem.offsetLeft;
+		// 	offsetY = e.clientY - dragItem.offsetTop;
+		// 	dragItem.style.cursor = "grabbing";
+		// });
+
+		// document.addEventListener("mousemove", (e) => {
+		// 	if (!isDragging) return;
+
+		// 	const x = e.clientX - offsetX;
+		// 	const y = e.clientY - offsetY;
+
+		// 	dragItem.style.left = `${x}px`;
+		// 	dragItem.style.top = `${y}px`;
+		// 	});
+
+		// 	document.addEventListener("mouseup", () => {
+		// 	isDragging = false;
+		// 	dragItem.style.cursor = "grab";
+		// 	});
+
+		// 	const container = document.querySelector(".catroom_visual_area");
+
+		// 	document.addEventListener("mousemove", (e) => {
+		// 	if (!isDragging) return;
+
+		// 	let x = e.clientX - offsetX;
+		// 	let y = e.clientY - offsetY;
+
+		// 	const maxX = container.offsetWidth - dragItem.offsetWidth;
+		// 	const maxY = container.offsetHeight - dragItem.offsetHeight;
+
+		// 	x = Math.max(0, Math.min(x, maxX));
+		// 	y = Math.max(0, Math.min(y, maxY));
+
+		// 	dragItem.style.left = `${x}px`;
+		// 	dragItem.style.top = `${y}px`;
+		// });
+
+
+	</script>
+</body>
+</html>
