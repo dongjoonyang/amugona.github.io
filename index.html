@@ -17,7 +17,7 @@
 <body>
 	<section class="catroom">
 		<header class="catroom_header">
-			<h1>고양이 랜덤 캐릭터 생성기</h1>
+			<h1>아무고나 생성</h1>
 		</header>
 
 		<div class="catroom_btns">
@@ -29,7 +29,19 @@
 		</div>
 
 		<article class="catroom_visual">
+			<!-- 추가됨 -->
+			<div class="random_thum_area">
+				<div class="thum type1" style="background: url('./img/img_face1.png') no-repeat center center / 100% 100%;"></div> <!-- 몸통 -->
+				<div class="thum type2" style="background: url('./img/img_eyes1.png') no-repeat center center / 100% 100%;"></div> <!-- 눈 -->
+				<div class="thum type3" style="background: url('./img/img_noise1.png') no-repeat center center / 100% 100%;"></div> <!-- 입 -->
+				<div class="thum type4" style="background: url('./img/img_mouth1.png') no-repeat center center / 100% 100%;"></div> <!-- 색상 -->
+			</div>
+			<!-- //추가됨 -->
+
 			<div class="catroom_visual_area">
+				<div id="showLayerBtn" class="random_img">
+					<img src="./img/egg.jpg" alt="">
+				</div>
 				<div class="visual_face" style="background: url('./img/img_face1.png') no-repeat center center / 100% 100%;"></div>
 				<div class="visual_eyes" style="background: url('./img/img_eyes1.png') no-repeat center center / 100% 100%;"></div>
 				<div class="visual_noise" style="background: url('./img/img_noise1.png') no-repeat center center / 100% 100%;"></div>
@@ -39,10 +51,10 @@
 
 		<div class="catroom_content">
 			<div class="tabs">
-				<div class="tab active" data-tab="1">얼굴</div>
+				<div class="tab active" data-tab="1">몸통</div>
 				<div class="tab" data-tab="2">눈</div>
-				<div class="tab" data-tab="3">코</div>
-				<div class="tab" data-tab="4">입</div>
+				<div class="tab" data-tab="3">입</div>
+				<div class="tab" data-tab="4">색상</div>
 			</div>
 		
 			<div class="tab_content active" data-content="1">
@@ -86,7 +98,7 @@
 		<div class="footer">
 			<div class="footer_btns">
 				<button class="btn reset" id="btn_reset">초기화</button>
-				<button class="btn" id="btn_save" onclick="alert('개발 준비중입니다.')">저장하기</button>
+				<!-- <button class="btn" id="btn_save" onclick="alert('개발 준비중입니다.')">저장하기</button> -->
 			</div>
 		</div>
 	</section>
@@ -99,55 +111,17 @@
 		</div>
 	</div>
 
+	<div class="dimmed_background"></div>
+    <div class="random_layer" id="randomLayer">
+        <div class="catroom_visual_area">
+            <div class="visual_face" style="background: url('./img/img_face1.png') no-repeat center center / 100% 100%;"></div>
+			<div class="visual_eyes" style="background: url('./img/img_eyes1.png') no-repeat center center / 100% 100%;"></div>
+			<div class="visual_noise" style="background: url('./img/img_noise1.png') no-repeat center center / 100% 100%;"></div>
+			<div class="visual_mouth" style="background: url('./img/img_mouth1.png') no-repeat center center / 100% 100%;"></div>
+        </div>
+    </div>
+
 	<!-- js -->
 	<script src="./js/catroom.js"></script>
-	<script>
-		// const dragItem = document.getElementById("dragMe");
-		// let offsetX = 0;
-		// let offsetY = 0;
-		// let isDragging = false;
-
-		// dragItem.addEventListener("mousedown", (e) => {
-		// 	isDragging = true;
-		// 	offsetX = e.clientX - dragItem.offsetLeft;
-		// 	offsetY = e.clientY - dragItem.offsetTop;
-		// 	dragItem.style.cursor = "grabbing";
-		// });
-
-		// document.addEventListener("mousemove", (e) => {
-		// 	if (!isDragging) return;
-
-		// 	const x = e.clientX - offsetX;
-		// 	const y = e.clientY - offsetY;
-
-		// 	dragItem.style.left = `${x}px`;
-		// 	dragItem.style.top = `${y}px`;
-		// 	});
-
-		// 	document.addEventListener("mouseup", () => {
-		// 	isDragging = false;
-		// 	dragItem.style.cursor = "grab";
-		// 	});
-
-		// 	const container = document.querySelector(".catroom_visual_area");
-
-		// 	document.addEventListener("mousemove", (e) => {
-		// 	if (!isDragging) return;
-
-		// 	let x = e.clientX - offsetX;
-		// 	let y = e.clientY - offsetY;
-
-		// 	const maxX = container.offsetWidth - dragItem.offsetWidth;
-		// 	const maxY = container.offsetHeight - dragItem.offsetHeight;
-
-		// 	x = Math.max(0, Math.min(x, maxX));
-		// 	y = Math.max(0, Math.min(y, maxY));
-
-		// 	dragItem.style.left = `${x}px`;
-		// 	dragItem.style.top = `${y}px`;
-		// });
-
-
-	</script>
 </body>
 </html>

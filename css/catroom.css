@@ -44,6 +44,7 @@ button {background: unset;border: unset;cursor: pointer;}
 	align-items: center;
 	justify-content: center;
 	gap: 10px;
+	z-index: 100;
 }
 .catroom_btns .btn.info {
 	min-width: 30px;
@@ -85,7 +86,18 @@ button {background: unset;border: unset;cursor: pointer;}
 	font-weight: bold;
 }
 /* 고양이 아바타 */
+.random_img {
+	position: absolute;	
+	top: 0;
+	left: 0;
+	z-index: 10;
+	cursor: pointer;
+}
+.random_img:hover {
+	opacity: 0.9;
+}
 .catroom_visual {
+	position: relative;
 	width: 100%;
 	min-height: 370px;
 	border-bottom: 1px solid #ddd;
@@ -93,6 +105,94 @@ button {background: unset;border: unset;cursor: pointer;}
 	align-items: center;
 	justify-content: center;
 }
+/* 썸네일 이미지 추가 */
+.random_thum_area {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	width: 100%;
+	height: 100%;
+}
+.random_thum_area .thum {
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid #ddd;
+	font-size: 18px;
+	width: 100px;
+	height: 100px;
+	border-radius: 7px;
+}
+.random_thum_area .thum.type1 {
+	top: 35px;
+	left: 250px;
+}
+.random_thum_area .thum.type2 {
+	top: 35px;
+	right: 250px;
+}
+.random_thum_area .thum.type3 {
+	top: 170px;
+	left: 250px;
+}
+.random_thum_area .thum.type4 {
+	top: 170px;
+	right: 250px;
+}
+.dimmed_background {
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 999; 
+    cursor: pointer; 
+}
+.dimmed_background.active {
+    display: block;
+}
+.random_layer {
+    display: none; 
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30vw;
+    height: 30vw;
+    background-color: white; 
+    border-radius: 10px; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); 
+    z-index: 1000;
+}
+.random_layer.active {
+    display: block;
+}
+.random_layer .catroom_visual_area {
+	width: 100% !important;
+	height: 100% !important;
+}
+.random_layer  .catroom_visual_area .visual_face {
+	width: 100%;
+	height: 100%;
+}
+.random_layer .catroom_visual_area .visual_eyes {
+	width: 100%;
+	height: 100%;
+}
+.random_layer .catroom_visual_area .visual_noise {
+	width: 100%;
+	height: 100%;
+}
+.random_layer .catroom_visual_area .visual_mouth {
+	width: 100%;
+	height: 100%;
+}
+
+/* 랜덤 이미지 */
 .catroom_visual_area {
 	position: relative;
 	overflow: hidden; 
@@ -190,7 +290,7 @@ button {background: unset;border: unset;cursor: pointer;}
 	justify-content: space-between;
 	flex-wrap: wrap;
 	padding: 10px;
-	gap: 30px;
+	/* gap: 30px; */
 }
 .catroom_content .tab_content_area .box {
 	width: 180px;
@@ -255,7 +355,6 @@ button {background: unset;border: unset;cursor: pointer;}
 	height: 80px;
 	display: flex;
 	align-items: center;
-	justify-content: center;
 	background: #fff;
 	border-top: 1px solid #ddd;
 }
@@ -288,7 +387,7 @@ button {background: unset;border: unset;cursor: pointer;}
 	.catroom_btns {
 		position: fixed;
 		right: 4vw;
-		bottom: 4vw;
+		bottom: 2vw;
 		top: initial;
 		z-index: 10;
 	}
@@ -328,7 +427,7 @@ button {background: unset;border: unset;cursor: pointer;}
 	.catroom_visual_area {
 		width: 30vw;
 		height: 30vw;
-		border-radius: 0.926vw;
+		/* border-radius: 0.926vw; */
 	}
 	.catroom_visual_area .visual_face {
 		width: 30vw;
@@ -346,6 +445,40 @@ button {background: unset;border: unset;cursor: pointer;}
 	.catroom_visual_area .visual_mouth {
 		width: 30vw;
 		height: 30vw;
+	}
+
+	/* 썸네일 이미지 추가 */
+	.random_thum_area .thum {
+		font-size: 1.4vw;
+		width: 12vw;
+		height: 12vw;
+		border-radius: 1vw;
+	}
+	.random_thum_area .thum.type1 {
+		top: 2.7vw;
+		left: 18vw;
+	}
+	.random_thum_area .thum.type2 {
+		top: 2.7vw;
+		right: 18vw;
+	}
+	.random_thum_area .thum.type3 {
+		top: 16vw;
+		left: 18vw;
+	}
+	.random_thum_area .thum.type4 {
+		top: 16vw;
+		right: 18vw;
+	}
+	
+	.random_layer {
+		width: 80vw;
+		height: 80vw;
+		background-color: none; 
+		z-index: 1000;
+	}
+	.random_layer.active {
+		display: block;
 	}
 	/* 탭 */
 	.catroom_content {
@@ -401,9 +534,6 @@ button {background: unset;border: unset;cursor: pointer;}
 	.footer {
 		width: 100%;
 		height: 15.407vw;
-		display: flex;
-		align-items: center;
-		justify-content: center;
 	}
 	.footer_btns .btn {
 		width: initial;
@@ -420,6 +550,7 @@ button {background: unset;border: unset;cursor: pointer;}
 		background: #fff;
 		border: 1px solid #ddd;
 		color: #333;
+		margin-left: 1.852vw;
 	}
 }
 

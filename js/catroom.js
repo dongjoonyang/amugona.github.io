@@ -3,11 +3,29 @@ const tabs = document.querySelectorAll('.tab');
 const contents = document.querySelectorAll('.tab_content');
 const btnBuzzer = document.querySelector('#btnBuzzer');
 const buzzerCount = btnBuzzer.querySelector('.count'); // count 클래스를 가진 span 요소 직접 선택
-const choiceCount = {}; // 탭별 뽑기 횟수를 저장하는 객체
+const 탭별뽑기횟수 = {}; // 탭별 뽑기 횟수를 저장하는 객체
+const randomThums = document.querySelectorAll('.random_thum_area .thum');
+
+// 팝업 관련 요소
+const showLayerBtn = document.getElementById('showLayerBtn');
+const randomLayer = document.getElementById('randomLayer');
+const randomVisualFace = randomLayer.querySelector('.visual_face');
+const randomVisualEyes = randomLayer.querySelector('.visual_eyes');
+const randomVisualNoise = randomLayer.querySelector('.visual_noise');
+const randomVisualMouth = randomLayer.querySelector('.visual_mouth');
+const dimmedBackground = document.querySelector('.dimmed_background');
+
+// 탭과 썸네일 연결 (data-tab 속성 값과 일치)
+const tabToThum = {
+    1: document.querySelector('.random_thum_area .thum.type1'), // 몸통
+    2: document.querySelector('.random_thum_area .thum.type2'), // 눈
+    3: document.querySelector('.random_thum_area .thum.type3'), // 입
+    4: document.querySelector('.random_thum_area .thum.type4')  // 색상
+};
 
 tabs.forEach(tab => {
     const tabIndex = tab.getAttribute('data-tab');
-    choiceCount[tabIndex] = 3; // 각 탭의 뽑기 횟수를 초기화
+    탭별뽑기횟수[tabIndex] = 3; // 각 탭의 뽑기 횟수를 초기화
 
     tab.addEventListener('click', () => {
         const target = tab.getAttribute('data-tab');
@@ -23,12 +41,36 @@ tabs.forEach(tab => {
         });
 
         // 현재 탭의 뽑기 횟수를 업데이트
-        randChoiceCount = choiceCount[target];
-        buzzerCount.textContent = randChoiceCount; // span 요소의 textContent 업데이트
+        뽑기횟수 = 탭별뽑기횟수[target];
+        buzzerCount.textContent = 뽑기횟수; // span 요소의 textContent 업데이트
         btnBuzzer.innerHTML = `뽑기 <span class="count">${뽑기횟수}</span>`;
-        btnBuzzer.disabled = randChoiceCount === 0;
+        btnBuzzer.disabled = 뽑기횟수 === 0;
+
+        // 썸네일 업데이트
+        updateThum(target);
     });
 });
+
+function updateThum(tabIndex) {
+    const thumElement = tabToThum[tabIndex];
+    const activeContent = document.querySelector(`.tab_content[data-content="${tabIndex}"]`);
+    const activeBox = activeContent ? activeContent.querySelector('.box.active') : null;
+
+    if (thumElement && activeBox) {
+        const img = activeBox.querySelector('img');
+        if (img) {
+            thumElement.style.backgroundImage = `url('${img.src}')`;
+            thumElement.textContent = ''; // 텍스트 지우기
+        } else {
+            thumElement.style.backgroundImage = 'none';
+            // 기본 텍스트 설정 (선택 사항)
+            if (tabIndex === '1') thumElement.textContent = '몸통';
+            else if (tabIndex === '2') thumElement.textContent = '눈';
+            else if (tabIndex === '3') thumElement.textContent = '입';
+            else if (tabIndex === '4') thumElement.textContent = '색상';
+        }
+    }
+}
 
 // 탭 메뉴 안 내용 클릭시 활성화 및 아바타 변경
 const boxBtn = document.querySelectorAll('.tab_content_area .box');
@@ -62,8 +104,37 @@ boxBtn.forEach(box => {
         } else if (tabNumber === '4' && img) {
             visualMouth.style.backgroundImage = `url('${img.src}')`;
         }
+
+        // 썸네일 업데이트 (현재 활성화된 탭에 대해서)
+        const activeTab = document.querySelector('.tab.active');
+        if (activeTab) {
+            updateThum(activeTab.getAttribute('data-tab'));
+        }
+
+        // 팝업 내부 아바타 업데이트
+        updateRandomLayerVisuals();
     });
 });
+
+// 팝업 열기
+showLayerBtn.addEventListener('click', () => {
+    randomLayer.classList.add('active');
+    dimmedBackground.classList.add('active');
+    updateRandomLayerVisuals(); // 팝업 열 때 내부 visual 업데이트
+});
+
+// 팝업 닫기 (딤 배경 클릭 시)
+dimmedBackground.addEventListener('click', () => {
+    randomLayer.classList.remove('active');
+    dimmedBackground.classList.remove('active');
+});
+
+function updateRandomLayerVisuals() {
+    randomVisualFace.style.backgroundImage = visualFace.style.backgroundImage;
+    randomVisualEyes.style.backgroundImage = visualEyes.style.backgroundImage;
+    randomVisualNoise.style.backgroundImage = visualNoise.style.backgroundImage;
+    randomVisualMouth.style.backgroundImage = visualMouth.style.backgroundImage;
+}
 
 // 뽑기 버튼 클릭시 레이어 및 랜덤 선택 (회전 효과 추가)
 const dimLayer = document.getElementById('dimLayer');
@@ -71,17 +142,16 @@ const dimLayerContent = dimLayer.querySelector('.dim_layer_content p:last-child 
 let rotationInterval;
 let selectionInterval;
 let countdownInterval;
-let randChoiceCount = 3; // 초기 뽑기 횟수
 
 btnBuzzer.addEventListener('click', () => {
     const activeTab = document.querySelector('.tab.active');
     const activeTabIndex = activeTab.getAttribute('data-tab');
 
-    if (choiceCount[activeTabIndex] > 0) {
+    if (탭별뽑기횟수[activeTabIndex] > 0) {
         dimLayer.classList.add('active');
         let count = 3;
         dimLayerContent.textContent = count;
-        const currentCount = choiceCount[activeTabIndex] - 1;
+        const currentCount = 탭별뽑기횟수[activeTabIndex] - 1;
         buzzerCount.textContent = currentCount; // span 요소의 textContent 업데이트
         btnBuzzer.disabled = true;
 
@@ -115,12 +185,12 @@ btnBuzzer.addEventListener('click', () => {
             boxes.forEach(box => box.classList.remove('rotating')); // 회전 애니메이션 종료
             dimLayer.classList.remove('active');
             btnBuzzer.disabled = false;
-            choiceCount[activeTabIndex]--; // 현재 탭의 뽑기 횟수 감소
-            randChoiceCount = choiceCount[activeTabIndex]; // 전역 변수 업데이트
-            buzzerCount.textContent = randChoiceCount; // span 요소의 textContent 업데이트
-            btnBuzzer.innerHTML = randChoiceCount === 0 ? '뽑기 완료' : `뽑기 <span class="count">${뽑기횟수}</span>`;
+            탭별뽑기횟수[activeTabIndex]--; // 현재 탭의 뽑기 횟수 감소
+            뽑기횟수 = 탭별뽑기횟수[activeTabIndex]; // 전역 변수 업데이트
+            buzzerCount.textContent = 뽑기횟수; // span 요소의 textContent 업데이트
+            btnBuzzer.innerHTML = 뽑기횟수 === 0 ? '뽑기 완료' : `뽑기 <span class="count">${뽑기횟수}</span>`;
 
-            // 최종 선택된 active box의 이미지로 아바타 변경
+            // 최종 선택된 active box의 이미지로 아바타 및 썸네일 변경
             const finalActiveBox = activeTabContent.querySelector('.box.active');
             if (finalActiveBox) {
                 const tabNumber = activeTabContent.getAttribute('data-content');
@@ -131,9 +201,11 @@ btnBuzzer.addEventListener('click', () => {
                     visualEyes.style.backgroundImage = `url('${img.src}')`;
                 } else if (tabNumber === '3' && img) {
                     visualNoise.style.backgroundImage = `url('${img.src}')`;
-                } else if (tabNumber === '4') {
+                } else if (tabNumber === '4' && img) {
                     visualMouth.style.backgroundImage = `url('${img.src}')`;
                 }
+                updateThum(tabNumber); // 썸네일 업데이트
+                updateRandomLayerVisuals(); // 팝업 내부 visual 업데이트
             }
         }, 3000); // 3초 후 종료
     } else {
@@ -147,12 +219,12 @@ btnReset.addEventListener('click', () => {
     // 탭 초기화 및 뽑기 횟수 초기화
     tabs.forEach((tab, index) => {
         const tabIndex = tab.getAttribute('data-tab');
-        choiceCount[tabIndex] = 3; // 각 탭의 뽑기 횟수 초기화
+        탭별뽑기횟수[tabIndex] = 3; // 각 탭의 뽑기 횟수 초기화
         if (index === 0) {
             tab.classList.add('active');
-            randChoiceCount = 3;
-            buzzerCount.textContent = randChoiceCount; // span 요소의 textContent 업데이트
-            btnBuzzer.innerHTML = `뽑기 <span class="count">${randChoiceCount}</span>`;
+            뽑기횟수 = 3;
+            buzzerCount.textContent = 뽑기횟수; // span 요소의 textContent 업데이트
+            btnBuzzer.innerHTML = `뽑기 <span class="count">${뽑기횟수}</span>`;
             btnBuzzer.disabled = false;
         } else {
             tab.classList.remove('active');
@@ -207,6 +279,18 @@ btnReset.addEventListener('click', () => {
             });
         }
     });
+
+    // 썸네일 초기화
+    randomThums.forEach(thum => {
+        thum.style.backgroundImage = 'none';
+        thum.textContent = thum.classList.contains('type1') ? '몸통' :
+                           thum.classList.contains('type2') ? '눈' :
+                           thum.classList.contains('type3') ? '입' : '색상';
+    });
+
+    // 팝업 닫기
+    randomLayer.classList.remove('active');
+    dimmedBackground.classList.remove('active');
 
     clearInterval(rotationInterval);
     clearInterval(selectionInterval);
